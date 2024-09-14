@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
+import java.awt.Desktop;
+import java.net.URI;
 
 /**
  * Hack-A-Thon 9/14/2024-9/15/2024
@@ -203,6 +205,13 @@ public class HelloApplication extends Application {
 
     private static void getWeather() {
         System.out.println("getWeather");
+        try {
+            // Replace "https://yourweatherapp.com" with the actual URL
+            URI uri = new URI("https://weather.com/weather/today/l/afd1892a384a87776fd470b48c5d153ef137ae9b620af9e1243b6ccf9b4fa301");
+            Desktop.getDesktop().browse(uri);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // ...
     } //end getWeather
 

@@ -167,7 +167,13 @@ public class HelloApplication extends Application {
     }//end playAudio
 
     private static void openCamera() {
-        System.out.println("openCamera");
+        try {
+            File camera = new File("/absolute/path/to/camera.vlc");
+            Desktop.getDesktop().open(camera);
+        }
+        catch (Exception exception){
+            System.out.println("Unable to open camera");
+        }
         // ...
     } //end openCamera
 

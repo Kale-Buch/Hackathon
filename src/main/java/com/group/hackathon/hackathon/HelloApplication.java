@@ -1,17 +1,17 @@
 package com.group.hackathon.hackathon;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+
+import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Hack-A-Thon 9/14/2024-9/15/2024
@@ -32,46 +32,53 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
     public static void main(String[] args) {
         String command;
         System.out.println("--Testing Begun--");
-        do {
+        do{
             Scanner scanner = new Scanner(System.in);
             command = scanner.nextLine();
             System.out.println("Trying to: " + command);//debug statement tbh
-            if (isGreeting(command)) {
+            if(isGreeting(command)){
                 playAudio(command);
                 System.out.println("What would you like to do?");
-            } else if (doesOpen(command, "camera")) {
-                playAudio(command);
-            } else if (doesOpen(command, "notes")) {
-                playAudio(command);
-            } else if (doesOpen(command, "maps")) {
-                playAudio(command);
-            } else if (doesOpen(command, "messages")) {
-                playAudio(command);
-            } else if (doesOpen(command, "alarm")) {
-                playAudio(command);
-            } else if (doesOpen(command, "weather")) {
-                playAudio(command);
-            } else if (doesOpen(command, "campfire")) {
-                playAudio(command);
-            } else if (!isFarewell(command)) {
+            }
+            else if(doesOpen(command, "camera")){
                 playAudio(command);
             }
-        } while (!isFarewell(command));
+            else if(doesOpen(command, "notes")){
+                playAudio(command);
+            }
+            else if(doesOpen(command, "maps")){
+                playAudio(command);
+            }
+            else if(doesOpen(command, "messages")){
+                playAudio(command);
+            }
+            else if(doesOpen(command, "alarm")){
+                playAudio(command);
+            }
+            else if(doesOpen(command, "weather")){
+                playAudio(command);
+            }
+            else if(doesOpen(command, "campfire")){
+                playAudio(command);
+            }
+            else if(!isFarewell(command)){
+                playAudio(command);
+            }
+        } while(!isFarewell(command));
         playAudio(command);
     }//end main
 
-    private static boolean isGreeting(String command) {
+    private static boolean isGreeting(String command){
         return Pattern.compile(Pattern.quote("howdy"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("hello"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("hi"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("hey"), Pattern.CASE_INSENSITIVE).matcher(command).find();
     }//isGreeting
 
-    private static boolean isFarewell(String command) {
+    private static boolean isFarewell(String command){
         return Pattern.compile(Pattern.quote("goodbye"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("farewell"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("bye"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
@@ -80,81 +87,90 @@ public class HelloApplication extends Application {
                 Pattern.compile(Pattern.quote("later"), Pattern.CASE_INSENSITIVE).matcher(command).find();
     }//end isFarewell
 
-    private static boolean doesOpen(String command, String toOpen) {
+    private static boolean doesOpen(String command, String toOpen){
         return Pattern.compile(Pattern.quote("open"), Pattern.CASE_INSENSITIVE).matcher(command).find() &&
                 Pattern.compile(Pattern.quote(toOpen), Pattern.CASE_INSENSITIVE).matcher(command).find();
     }//end doesOpen
 
-    private static void playAudio(String command) {
-        try {
-            if (isGreeting(command)) {
+    private static void playAudio(String command){
+        try{
+            if(isGreeting(command)) {
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/greeting.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
-            } else if (doesOpen(command, "camera")) {
+            }
+            else if(doesOpen(command, "camera")){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/camera.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
-                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength() / 1000000));
+                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
                 openCamera();
-            } else if (doesOpen(command, "notes")) {
+            }
+            else if(doesOpen(command, "notes")){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/notes.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
-                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength() / 1000000));
+                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
                 openNotes();
-            } else if (doesOpen(command, "maps")) {
+            }
+            else if(doesOpen(command, "maps")){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/maps.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
-                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength() / 1000000));
+                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
                 getDirections();
-            } else if (doesOpen(command, "messages")) {
+            }
+            else if(doesOpen(command, "messages")){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/text.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
-                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength() / 1000000));
+                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
                 startSendingText();
-            } else if (doesOpen(command, "alarm")) {
+            }
+            else if(doesOpen(command, "alarm")){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/alarm.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
-                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength() / 1000000));
+                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
                 setAlarm();
-            } else if (doesOpen(command, "weather")) {
+            }
+            else if(doesOpen(command, "weather")){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/whatWeather.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
-                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength() / 1000000));
+                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
                 getWeather();
-            } else if (doesOpen(command, "campfire")) {
+            }
+            else if(doesOpen(command, "campfire")){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/campfire.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
-                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength() / 1000000));
+                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
                 playCampfireAmbiance();
-            } else if (isFarewell(command)) {
+            }
+            else if(isFarewell(command)){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/farewell.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
-                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength() / 1000000));
+                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
                 Platform.exit();
-            } else {
+            }
+            else{
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/unknown.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
             }
-        } catch (Exception exception) {
+        } catch (Exception exception){
             System.out.println("Error: Could not play audio");
         }
     }//end playAudio
@@ -191,34 +207,10 @@ public class HelloApplication extends Application {
     } //end getWeather
 
     private static void playCampfireAmbiance() {
-        // Path to the audio file
-        String audioPath = System.getProperty("user.dir") + File.separator + "resources" + File.separator + "campfire.wav";
-
-        try {
-            // Open an audio input stream from the file
-            File audioFile = new File(audioPath);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
-
-            // Get a sound clip resource
-            Clip clip = AudioSystem.getClip();
-
-            // Open the audio clip and load the audio stream data into it
-            clip.open(audioStream);
-
-            // Play the clip
-            clip.start();
-
-            // Keep the program running until the audio finishes playing
-            System.out.println("Playing campfire ambiance...");
-            Thread.sleep(clip.getMicrosecondLength() / 1000);  // Sleep until the sound is done playing
-
-        } catch (Exception e) {
-            System.out.println("Error playing campfire ambiance: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-
+        System.out.println("playCampfireAmbiance");
+        //play a 10 hour youtube video somehow lmao
+        // ...
+    } //end playCampfireAmbiance
 
 
     /*not used yet/might not use?

@@ -189,7 +189,13 @@ public class HelloApplication extends Application {
 
     private static void getDirections() {
         System.out.println("getDirections");
-        // ...
+        try {
+            // Replace "https://yourweatherapp.com" with the actual URL
+            URI uri = new URI("https://www.google.com/maps/@33.5860592,-101.8818651,14z?entry=ttu&g_ep=EgoyMDI0MDkxMS4wIKXMDSoASAFQAw%3D%3D");
+            Desktop.getDesktop().browse(uri);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     } //end getDirections
 
 

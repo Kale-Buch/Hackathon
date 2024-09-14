@@ -57,6 +57,9 @@ public class HelloApplication extends Application {
             else if(doesOpen(command, "clock")){
                 playAudio(command);
             }
+            else if(!isFarewell(command)){
+                playAudio(command);
+            }
         } while(!isFarewell(command));
         playAudio(command);
     }
@@ -118,6 +121,12 @@ public class HelloApplication extends Application {
                 clip.start();
                 TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
                 Platform.exit();
+            }
+            else{
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/unknown.wav").getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
             }
         } catch (Exception exception){
             System.out.println("Error: Could not play audio");

@@ -5,6 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -33,27 +37,26 @@ public class HelloApplication extends Application {
             System.out.println("Testing Begun");
             Scanner scanner = new Scanner(System.in);
             command = scanner.nextLine();
-            scanner.close();
             if(isGreeting(command)){
-                System.out.println("HOWDY PARTNER");
+                playAudio(command);
             }
             else if(isFarewell(command)){
-                System.out.println("SEE YA LATER PARTNER");
+                playAudio(command);
             }
             else if(doesOpen(command, "camera")){
-                System.out.println("Opening camera...");
+                playAudio(command);
             }
             else if(doesOpen(command, "notes")){
-                System.out.println("Opening notes...");
+                playAudio(command);
             }
             else if(doesOpen(command, "messages")){
-                System.out.println("Opening messages...");
+                playAudio(command);
             }
             else if(doesOpen(command, "maps")){
-                System.out.println("Opening maps...");
+                playAudio(command);
             }
             else if(doesOpen(command, "clock")){
-                System.out.println("Opening clock...");
+                playAudio(command);
             }
         } while(!command.equalsIgnoreCase("stop"));
     }
@@ -61,9 +64,29 @@ public class HelloApplication extends Application {
         return command.contains("howdy") || command.contains("hello") || command.contains("hey");
     }
     private static boolean isFarewell(String command){
-        return command.contains("goodbye") || command.contains("bye") || command.contains("farewell");
+        return command.contains("goodbye") || command.contains("bye") || command.contains("farewell") || command.contains("hi");
     }
     private static boolean doesOpen(String command, String argument){
         return command.contains("open") && command.contains(argument);
+    }
+
+    private static void playAudio(String command){
+        try{
+            if(isGreeting(command)) {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/greeting.wav").getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            }
+            else{
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/notes.wav").getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            }
+        } catch (Exception exception){
+            System.out.println("Error: Could not play audio");
+        }
+
     }
 }

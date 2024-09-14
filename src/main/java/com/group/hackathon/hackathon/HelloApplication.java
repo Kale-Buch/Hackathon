@@ -7,8 +7,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import javax.sound.sampled.*;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -202,7 +204,13 @@ public class HelloApplication extends Application {
     } //end setAlarm
 
     private static void getWeather() {
-        System.out.println("getWeather");
+        try {
+            // Replace "https://yourweatherapp.com" with the actual URL
+            URI uri = new URI("https://weather.com/weather/today/l/afd1892a384a87776fd470b48c5d153ef137ae9b620af9e1243b6ccf9b4fa301");
+            Desktop.getDesktop().browse(uri);
+        } catch (Exception e) {
+            System.out.println("Browser Open Failed.");
+        }
         // ...
     } //end getWeather
 

@@ -58,7 +58,7 @@ public class HelloApplication extends Application {
             else if(doesOpen(command, "clock")){
                 playAudio(command);
             }
-        } while(isFarewell(command));
+        } while(!isFarewell(command));
         Platform.exit();
     }
     private static boolean isGreeting(String command){

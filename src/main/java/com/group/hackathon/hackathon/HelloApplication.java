@@ -51,10 +51,7 @@ public class HelloApplication extends Application {
             else if(doesOpen(command, "notes")){
                 playAudio(command);
             }
-            else if(doesOpen(command, "maps")){
-                playAudio(command);
-            }
-            else if(doesOpen(command, "messages")){
+            else if(doesOpen(command, "maps")) {
                 playAudio(command);
             }
             else if(doesOpen(command, "alarm")){
@@ -126,14 +123,6 @@ public class HelloApplication extends Application {
                 TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
                 getDirections();
             }
-            else if(doesOpen(command, "messages")){
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/text.wav").getAbsoluteFile());
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
-                clip.start();
-                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
-                startSendingText();
-            }
             else if(doesOpen(command, "alarm")){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/alarm.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
@@ -191,13 +180,7 @@ public class HelloApplication extends Application {
         System.out.println("getDirections");
         // ...
     } //end getDirections
-
-
-    private static void startSendingText() {
-        System.out.println("startSendingText");
-        // ...
-    } //end startSendingText
-
+    
     private static void setAlarm() {
         System.out.println("setAlarm");
         // ...

@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * Hack-A-Thon 9/14/2024-9/15/2024
@@ -28,6 +29,42 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        String command;
+        do{
+            System.out.println("Testing Begun");
+            Scanner scanner = new Scanner(System.in);
+            command = scanner.nextLine();
+            scanner.close();
+            if(isGreeting(command)){
+                System.out.println("HOWDY PARTNER");
+            }
+            else if(isFarewell(command)){
+                System.out.println("SEE YA LATER PARTNER");
+            }
+            else if(doesOpen(command, "camera")){
+                System.out.println("Opening camera...");
+            }
+            else if(doesOpen(command, "notes")){
+                System.out.println("Opening notes...");
+            }
+            else if(doesOpen(command, "messages")){
+                System.out.println("Opening messages...");
+            }
+            else if(doesOpen(command, "maps")){
+                System.out.println("Opening maps...");
+            }
+            else if(doesOpen(command, "clock")){
+                System.out.println("Opening clock...");
+            }
+        } while(!command.equalsIgnoreCase("stop"));
+    }
+    private static boolean isGreeting(String command){
+        return command.contains("howdy") || command.contains("hello") || command.contains("hey");
+    }
+    private static boolean isFarewell(String command){
+        return command.contains("goodbye") || command.contains("bye") || command.contains("farewell");
+    }
+    private static boolean doesOpen(String command, String argument){
+        return command.contains("open") && command.contains(argument);
     }
 }

@@ -34,27 +34,28 @@ public class HelloApplication extends Application {
     }
     public static void main(String[] args) {
         String command;
+        System.out.println("--Testing Begun--");
         do{
-            System.out.println("--Testing Begun--");
             Scanner scanner = new Scanner(System.in);
             command = scanner.nextLine();
+            System.out.println("Trying to: " + command);//debug statement tbh
             if(isGreeting(command)){
                 playAudio(command);
+                System.out.println("What would you like to do?");
             }
             else if(doesOpen(command, "camera")){
                 playAudio(command);
             }
             else if(doesOpen(command, "notes")){
-                System.out.println("notes");
-                playAudio(command);
-            }
-            else if(doesOpen(command, "messages")){
                 playAudio(command);
             }
             else if(doesOpen(command, "maps")){
                 playAudio(command);
             }
-            else if(doesOpen(command, "clock")){
+            else if(doesOpen(command, "messages")){
+                playAudio(command);
+            }
+            else if(doesOpen(command, "alarm")){
                 playAudio(command);
             }
             else if(!isFarewell(command)){
@@ -93,29 +94,53 @@ public class HelloApplication extends Application {
                 clip.open(audioInputStream);
                 clip.start();
             }
+            else if(doesOpen(command, "camera")){
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/camera.wav").getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
+                openCamera();
+            }
             else if(doesOpen(command, "notes")){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/notes.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
+                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
+                openNotes();
             }
             else if(doesOpen(command, "maps")){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/maps.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
-            }
-            else if(doesOpen(command, "app")){
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/app.wav").getAbsoluteFile());
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
-                clip.start();
+                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
+                getDirections();
             }
             else if(doesOpen(command, "messages")){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/text.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
+                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
+                startSendingText();
+            }
+            else if(doesOpen(command, "alarm")){
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/alarm.wav").getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
+                setAlarm(command);
+            }
+            else if(doesOpen(command, "app")){
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/app.wav").getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
+                //openApp(command);
             }
             else if(isFarewell(command)){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/farewell.wav").getAbsoluteFile());
@@ -135,54 +160,74 @@ public class HelloApplication extends Application {
             System.out.println("Error: Could not play audio");
         }
     }//end playAudio
-    
+
+    private static void openCamera() {
+        System.out.println("openCamera");
+        // ...
+    } //end openCamera
+
+    private static void openNotes() {
+        System.out.println("openNotes");
+        // ...
+    } //end openNotes
+
+    private static void getDirections() {
+        System.out.println("getDirections");
+        // ...
+    } //end getDirections
+
+
+    private static void startSendingText() {
+        System.out.println("startSendingText");
+        // ...
+    } //end startSendingText
+
+    private static void setAlarm(String command) {
+        System.out.println("setAlarm");
+        // ...
+    } //end setAlarm
+
+    /*
     private void openApp(String appName) {
+        System.out.println("openApp");
         // ...
-    }//end openApp
+    } //end openApp
+    */
 
-    private void openCamera() {
-        // ...
-    }//end openCamera
 
-    private void openNotes() {
-        // ...
-    }//end openNotes
 
-    private void startSendingText() {
-        // ...
-    }//end startSendingText
-
-    private void getDirections() {
-        // ...
-    }//end getDirections
-
-    private void findNearbyRestaurants() {
-        // ...
-    }//end findNearbyRestaurants
-
-    private void setAlarm(String command) {
-        // ...
-    }//end setAlarm
+    /*not used yet
 
     private void playCampfireAmbiance() {
+        System.out.println("playCampfireAmbiance");
+        //play a 10 hour youtube video somehow lmao
         // ...
-    }//end playCampfireAmbiance
+    } //end playCampfireAmbiance
 
     private String getWeatherForecast() {
+        System.out.println("getWeatherForecast");
         // ...
-    }//end getWeatherForecast
+        return null; // Replace with actual implementation
+    } //end getWeatherForecast
 
     private String getWesternJoke() {
+        System.out.println("getWesternJoke");
         // ...
-    }//end getWesternJoke
+        return null; // Replace with actual implementation
+    } //end getWesternJoke
 
     private void playWesternMusic() {
+        System.out.println("playWesternMusic");
         // ...
-    }//end playWesternMusic
+    } //end playWesternMusic
 
     private String generateCowboyName() {
+        System.out.println("generateCowboyName");
         // ...
-    }//end generateCowboyName
+        return null; // Replace with actual implementation
+    } //end generateCowboyName
 
+
+    */
 
 }

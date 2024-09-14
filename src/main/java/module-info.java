@@ -1,8 +1,8 @@
-module com.group.hackathon {
+module com.group.hackathon.hackathon {
     requires javafx.controls;
     requires javafx.fxml;
 
 
-    opens com.group.hackathon to javafx.fxml;
-    exports com.group.hackathon;
+    opens com.group.hackathon.hackathon to javafx.fxml;
+    exports com.group.hackathon.hackathon;
 }

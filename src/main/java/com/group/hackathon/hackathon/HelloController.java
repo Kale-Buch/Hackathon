@@ -1,4 +1,4 @@
-package com.group.hackathon;
+package com.group.hackathon.hackathon;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

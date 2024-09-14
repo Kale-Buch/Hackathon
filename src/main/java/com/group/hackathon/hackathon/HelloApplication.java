@@ -1,4 +1,4 @@
-package com.group.hackathon;
+package com.group.hackathon.hackathon;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

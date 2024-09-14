@@ -58,6 +58,12 @@ public class HelloApplication extends Application {
             else if(doesOpen(command, "alarm")){
                 playAudio(command);
             }
+            else if(doesOpen(command, "weather")){
+                playAudio(command);
+            }
+            else if(doesOpen(command, "campfire")){
+                playAudio(command);
+            }
             else if(!isFarewell(command)){
                 playAudio(command);
             }
@@ -134,16 +140,22 @@ public class HelloApplication extends Application {
                 TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
                 setAlarm();
             }
-            /*
-            else if(doesOpen(command, "app")){
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/app.wav").getAbsoluteFile());
+            else if(doesOpen(command, "weather")){
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/whatWeather.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
                 TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
-                //openApp(command);
+                getWeather();
             }
-            */
+            else if(doesOpen(command, "campfire")){
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/campfire.wav").getAbsoluteFile());
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
+                playCampfireAmbiance();
+            }
             else if(isFarewell(command)){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/farewell.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
@@ -189,28 +201,19 @@ public class HelloApplication extends Application {
         // ...
     } //end setAlarm
 
-    /*
-    private void openApp(String appName) {
-        System.out.println("openApp");
+    private static void getWeather() {
+        System.out.println("getWeather");
         // ...
-    } //end openApp
-    */
+    } //end getWeather
 
-
-
-    /*not used yet
-
-    private void playCampfireAmbiance() {
+    private static void playCampfireAmbiance() {
         System.out.println("playCampfireAmbiance");
         //play a 10 hour youtube video somehow lmao
         // ...
     } //end playCampfireAmbiance
 
-    private String getWeather() {
-        System.out.println("getWeather");
-        // ...
-        return null; // Replace with actual implementation
-    } //end getWeather
+
+    /*not used yet/might not use?
 
     private String generateCowboyName() {
         System.out.println("generateCowboyName");
@@ -220,4 +223,4 @@ public class HelloApplication extends Application {
 
     */
 
-}
+}//end class

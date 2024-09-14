@@ -1,6 +1,7 @@
 package com.group.hackathon.hackathon;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -11,6 +12,7 @@ import javax.sound.sampled.Clip;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 /**
  * Hack-A-Thon 9/14/2024-9/15/2024
@@ -34,19 +36,17 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         String command;
         do{
-            System.out.println("Testing Begun");
+            System.out.println("--Testing Begun--");
             Scanner scanner = new Scanner(System.in);
             command = scanner.nextLine();
             if(isGreeting(command)){
-                playAudio(command);
-            }
-            else if(isFarewell(command)){
                 playAudio(command);
             }
             else if(doesOpen(command, "camera")){
                 playAudio(command);
             }
             else if(doesOpen(command, "notes")){
+                System.out.println("notes");
                 playAudio(command);
             }
             else if(doesOpen(command, "messages")){
@@ -58,16 +58,25 @@ public class HelloApplication extends Application {
             else if(doesOpen(command, "clock")){
                 playAudio(command);
             }
-        } while(!command.equalsIgnoreCase("stop"));
+        } while(isFarewell(command));
+        Platform.exit();
     }
     private static boolean isGreeting(String command){
-        return command.contains("howdy") || command.contains("hello") || command.contains("hey");
+        return Pattern.compile(Pattern.quote("howdy"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
+                Pattern.compile(Pattern.quote("hello"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
+                Pattern.compile(Pattern.quote("hi"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
+                Pattern.compile(Pattern.quote("hey"), Pattern.CASE_INSENSITIVE).matcher(command).find();
     }
     private static boolean isFarewell(String command){
-        return command.contains("goodbye") || command.contains("bye") || command.contains("farewell") || command.contains("hi");
+        return Pattern.compile(Pattern.quote("goodbye"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
+                Pattern.compile(Pattern.quote("farewell"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
+                Pattern.compile(Pattern.quote("bye"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
+                Pattern.compile(Pattern.quote("exit"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
+                Pattern.compile(Pattern.quote("later"), Pattern.CASE_INSENSITIVE).matcher(command).find();
     }
-    private static boolean doesOpen(String command, String argument){
-        return command.contains("open") && command.contains(argument);
+    private static boolean doesOpen(String command, String toOpen){
+        return Pattern.compile(Pattern.quote("open"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
+                Pattern.compile(Pattern.quote(toOpen), Pattern.CASE_INSENSITIVE).matcher(command).find();
     }
 
     private static void playAudio(String command){
@@ -78,7 +87,7 @@ public class HelloApplication extends Application {
                 clip.open(audioInputStream);
                 clip.start();
             }
-            else{
+            else if(doesOpen(command, "notes")){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/notes.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);

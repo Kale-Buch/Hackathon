@@ -210,7 +210,7 @@ public class HelloApplication extends Application {
             URI uri = new URI("https://weather.com/weather/today/l/afd1892a384a87776fd470b48c5d153ef137ae9b620af9e1243b6ccf9b4fa301");
             Desktop.getDesktop().browse(uri);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Browser Open Failed.");
         }
         // ...
     } //end getWeather

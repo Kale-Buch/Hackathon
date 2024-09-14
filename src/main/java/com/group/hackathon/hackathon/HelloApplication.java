@@ -156,7 +156,10 @@ public class HelloApplication extends Application {
                 clip.open(audioInputStream);
                 clip.start();
                 TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
-                playCampfireAmbiance();
+                AudioInputStream audioInputStream1 = AudioSystem.getAudioInputStream(new File("src/main/resources/firesound.wav").getAbsoluteFile());
+                Clip clip1 = AudioSystem.getClip();
+                clip1.open(audioInputStream1);
+                clip1.start();
             }
             else if(isFarewell(command)){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/farewell.wav").getAbsoluteFile());
@@ -213,34 +216,7 @@ public class HelloApplication extends Application {
         }
         // ...
     } //end getWeather
-
-    private static void playCampfireAmbiance() {
-        // Path to the audio file
-        String audioPath = System.getProperty("user.dir") + File.separator + "resources" + File.separator + "campfire.wav";
-
-        try {
-            // Open an audio input stream from the file
-            File audioFile = new File(audioPath);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
-
-            // Get a sound clip resource
-            Clip clip = AudioSystem.getClip();
-
-            // Open the audio clip and load the audio stream data into it
-            clip.open(audioStream);
-
-            // Play the clip
-            clip.start();
-
-            // Keep the program running until the audio finishes playing
-            System.out.println("Playing campfire ambiance...");
-            Thread.sleep(clip.getMicrosecondLength() / 1000);  // Sleep until the sound is done playing
-
-        } catch (Exception e) {
-            System.out.println("Error playing campfire ambiance: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
+    
     /*not used yet/might not use?
 
     private String generateCowboyName() {

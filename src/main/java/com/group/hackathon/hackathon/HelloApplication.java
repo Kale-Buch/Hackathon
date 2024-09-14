@@ -51,10 +51,7 @@ public class HelloApplication extends Application {
             else if(doesOpen(command, "notes")){
                 playAudio(command);
             }
-            else if(doesOpen(command, "maps")){
-                playAudio(command);
-            }
-            else if(doesOpen(command, "messages")){
+            else if(doesOpen(command, "maps")) {
                 playAudio(command);
             }
             else if(doesOpen(command, "alarm")){
@@ -126,14 +123,6 @@ public class HelloApplication extends Application {
                 TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
                 getDirections();
             }
-            else if(doesOpen(command, "messages")){
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/text.wav").getAbsoluteFile());
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
-                clip.start();
-                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
-                startSendingText();
-            }
             else if(doesOpen(command, "alarm")){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/alarm.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
@@ -189,15 +178,15 @@ public class HelloApplication extends Application {
 
     private static void getDirections() {
         System.out.println("getDirections");
-        // ...
+        try {
+            // Replace "https://yourweatherapp.com" with the actual URL
+            URI uri = new URI("https://www.google.com/maps/@33.5860592,-101.8818651,14z?entry=ttu&g_ep=EgoyMDI0MDkxMS4wIKXMDSoASAFQAw%3D%3D");
+            Desktop.getDesktop().browse(uri);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     } //end getDirections
-
-
-    private static void startSendingText() {
-        System.out.println("startSendingText");
-        // ...
-    } //end startSendingText
-
+    
     private static void setAlarm() {
         System.out.println("setAlarm");
         // ...

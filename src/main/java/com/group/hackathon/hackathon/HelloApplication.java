@@ -132,8 +132,9 @@ public class HelloApplication extends Application {
                 clip.open(audioInputStream);
                 clip.start();
                 TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
-                setAlarm(command);
+                setAlarm();
             }
+            /*
             else if(doesOpen(command, "app")){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/app.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
@@ -142,6 +143,7 @@ public class HelloApplication extends Application {
                 TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
                 //openApp(command);
             }
+            */
             else if(isFarewell(command)){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/farewell.wav").getAbsoluteFile());
                 Clip clip = AudioSystem.getClip();
@@ -182,7 +184,7 @@ public class HelloApplication extends Application {
         // ...
     } //end startSendingText
 
-    private static void setAlarm(String command) {
+    private static void setAlarm() {
         System.out.println("setAlarm");
         // ...
     } //end setAlarm
@@ -204,29 +206,17 @@ public class HelloApplication extends Application {
         // ...
     } //end playCampfireAmbiance
 
-    private String getWeatherForecast() {
-        System.out.println("getWeatherForecast");
+    private String getWeather() {
+        System.out.println("getWeather");
         // ...
         return null; // Replace with actual implementation
-    } //end getWeatherForecast
-
-    private String getWesternJoke() {
-        System.out.println("getWesternJoke");
-        // ...
-        return null; // Replace with actual implementation
-    } //end getWesternJoke
-
-    private void playWesternMusic() {
-        System.out.println("playWesternMusic");
-        // ...
-    } //end playWesternMusic
+    } //end getWeather
 
     private String generateCowboyName() {
         System.out.println("generateCowboyName");
         // ...
         return null; // Replace with actual implementation
     } //end generateCowboyName
-
 
     */
 

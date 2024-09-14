@@ -67,6 +67,20 @@ public class HelloApplication extends Application {
     }
 
 
+    // Implement these methods to handle each specific command
+    private void openApp(String appName) { /* ... */ }
+    private void openCamera() { /* ... */ }
+    private void openNotes() { /* ... */ }
+    private void startSendingText() { /* ... */ }
+    private void getDirections() { /* ... */ }
+    private void findNearbyRestaurants() { /* ... */ }
+    private void setAlarm(String command) { /* ... */ }
+    private void playCampfireAmbiance() { /* ... */ }
+    private String getWeatherForecast() { /* ... */ }
+    private String getSchedule() { /* ... */ }
+    private void playWesternMusic() { /* ... */ }
+    private String generateCowboyName() { /* ... */ }
+
 
     public static void main(String[] args) {
         launch();

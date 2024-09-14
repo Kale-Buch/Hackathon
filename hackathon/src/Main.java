@@ -5,7 +5,7 @@ package hackathon.src;
  * Group Members:
  * <ul>
  *     <li>Jack Terrell</li>
- *     <li>Flinn House</li>
+ *     <li>Flynn House</li>
  *     <li>Kale Buchanan</li>
  *     <li>Sagar Basavaraju</li>
  * </ul>

@@ -6,13 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Hack-A-Thon 9/14/2024-9/15/2024
@@ -59,7 +58,7 @@ public class HelloApplication extends Application {
                 playAudio(command);
             }
         } while(!isFarewell(command));
-        Platform.exit();
+        playAudio(command);
     }
     private static boolean isGreeting(String command){
         return Pattern.compile(Pattern.quote("howdy"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
@@ -72,6 +71,7 @@ public class HelloApplication extends Application {
                 Pattern.compile(Pattern.quote("farewell"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("bye"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("exit"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
+                Pattern.compile(Pattern.quote("stop"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("later"), Pattern.CASE_INSENSITIVE).matcher(command).find();
     }
     private static boolean doesOpen(String command, String toOpen){
@@ -116,10 +116,11 @@ public class HelloApplication extends Application {
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
+                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
+                Platform.exit();
             }
         } catch (Exception exception){
             System.out.println("Error: Could not play audio");
         }
-
     }
 }

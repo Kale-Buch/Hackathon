@@ -62,13 +62,15 @@ public class HelloApplication extends Application {
             }
         } while(!isFarewell(command));
         playAudio(command);
-    }
+    }//end main
+
     private static boolean isGreeting(String command){
         return Pattern.compile(Pattern.quote("howdy"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("hello"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("hi"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("hey"), Pattern.CASE_INSENSITIVE).matcher(command).find();
-    }
+    }//isGreeting
+
     private static boolean isFarewell(String command){
         return Pattern.compile(Pattern.quote("goodbye"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("farewell"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
@@ -76,11 +78,12 @@ public class HelloApplication extends Application {
                 Pattern.compile(Pattern.quote("exit"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("stop"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("later"), Pattern.CASE_INSENSITIVE).matcher(command).find();
-    }
+    }//end isFarewell
+
     private static boolean doesOpen(String command, String toOpen){
         return Pattern.compile(Pattern.quote("open"), Pattern.CASE_INSENSITIVE).matcher(command).find() &&
                 Pattern.compile(Pattern.quote(toOpen), Pattern.CASE_INSENSITIVE).matcher(command).find();
-    }
+    }//end doesOpen
 
     private static void playAudio(String command){
         try{
@@ -131,5 +134,55 @@ public class HelloApplication extends Application {
         } catch (Exception exception){
             System.out.println("Error: Could not play audio");
         }
-    }
+    }//end playAudio
+    
+    private void openApp(String appName) {
+        // ...
+    }//end openApp
+
+    private void openCamera() {
+        // ...
+    }//end openCamera
+
+    private void openNotes() {
+        // ...
+    }//end openNotes
+
+    private void startSendingText() {
+        // ...
+    }//end startSendingText
+
+    private void getDirections() {
+        // ...
+    }//end getDirections
+
+    private void findNearbyRestaurants() {
+        // ...
+    }//end findNearbyRestaurants
+
+    private void setAlarm(String command) {
+        // ...
+    }//end setAlarm
+
+    private void playCampfireAmbiance() {
+        // ...
+    }//end playCampfireAmbiance
+
+    private String getWeatherForecast() {
+        // ...
+    }//end getWeatherForecast
+
+    private String getWesternJoke() {
+        // ...
+    }//end getWesternJoke
+
+    private void playWesternMusic() {
+        // ...
+    }//end playWesternMusic
+
+    private String generateCowboyName() {
+        // ...
+    }//end generateCowboyName
+
+
 }

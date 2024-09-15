@@ -17,6 +17,16 @@ import java.net.URI;
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Hack-A-Thon 9/14/2024-9/15/2024
+ * <br>
+ * <ul>
+ *     <li>Jack Terrell</li>
+ *     <li>Flynn House</li>
+ *     <li>Kale Buchanan</li>
+ *     <li>Sagar Basavaraju</li>
+ * </ul>
+ */
 public class HelloApplication extends Application {
 
     private Label resultLabel;

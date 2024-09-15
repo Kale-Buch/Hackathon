@@ -4,6 +4,10 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import javax.sound.sampled.*;
@@ -11,210 +15,190 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Hack-A-Thon 9/14/2024-9/15/2024
- * <br>
- * <ul>
- *     <li>Jack Terrell</li>
- *     <li>FLynn House</li>
- *     <li>Kale Buchanan</li>
- *     <li>Sagar Basavaraju</li>
- * </ul>
- */
 public class HelloApplication extends Application {
+
+    private Label resultLabel;
+    private TextField commandInput;
+
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        VBox root = new VBox(20);
+        root.setPadding(new javafx.geometry.Insets(20));
+
+        resultLabel = new Label("Welcome!");
+
+        commandInput = new TextField();
+        commandInput.setPromptText("Enter command");
+
+        Button submitButton = new Button("Submit");
+        submitButton.setOnAction(e -> processCommand(commandInput.getText()));
+
+        Button greetingButton = new Button("Greeting");
+        greetingButton.setOnAction(e -> handleGreeting());
+
+        Button openCameraButton = new Button("Open Camera");
+        openCameraButton.setOnAction(e -> handleOpen("camera"));
+
+        Button openNotesButton = new Button("Open Notes");
+        openNotesButton.setOnAction(e -> handleOpen("notes"));
+
+        Button openMapsButton = new Button("Open Maps");
+        openMapsButton.setOnAction(e -> handleOpen("maps"));
+
+        Button setAlarmButton = new Button("Set Alarm");
+        setAlarmButton.setOnAction(e -> handleOpen("alarm"));
+
+        Button getWeatherButton = new Button("Get Weather");
+        getWeatherButton.setOnAction(e -> handleOpen("weather"));
+
+        Button openCampfireButton = new Button("Open Campfire");
+        openCampfireButton.setOnAction(e -> handleOpen("campfire"));
+
+        Button farewellButton = new Button("Farewell");
+        farewellButton.setOnAction(e -> handleFarewell());
+
+        root.getChildren().addAll(resultLabel, commandInput, submitButton, greetingButton, openCameraButton, openNotesButton, openMapsButton, setAlarmButton, getWeatherButton, openCampfireButton, farewellButton);
+
+        Scene scene = new Scene(root, 320, 240);
+        stage.setTitle("Command Application");
         stage.setScene(scene);
         stage.show();
     }
-    public static void main(String[] args) {
-        //launch();
-        String command;
-        System.out.println("--Testing Begun--");
-        do{
-            Scanner scanner = new Scanner(System.in);
-            command = scanner.nextLine();
-            System.out.println("Trying to: " + command);//debug statement tbh
-            if(isGreeting(command)){
-                playAudio(command);
-                System.out.println("What would you like to do?");
-            }
-            else if(doesOpen(command, "camera")){
-                playAudio(command);
-            }
-            else if(doesOpen(command, "notes")){
-                playAudio(command);
-            }
-            else if(doesOpen(command, "maps")){
-                playAudio(command);
-            }
-            else if(doesOpen(command, "alarm")){
-                playAudio(command);
-            }
-            else if(doesOpen(command, "weather")){
-                playAudio(command);
-            }
-            else if(doesOpen(command, "campfire")){
-                playAudio(command);
-            }
-            else if(!isFarewell(command)){
-                playAudio(command);
-            }
-        } while(!isFarewell(command));
-        playAudio(command);
-    }//end main
 
-    private static boolean isGreeting(String command){
+    private void processCommand(String command) {
+        if (isGreeting(command)) {
+            playAudio("greeting");
+            resultLabel.setText("Greeting received!");
+        } else if (doesOpen(command, "camera")) {
+            playAudio("camera");
+        } else if (doesOpen(command, "notes")) {
+            playAudio("notes");
+            openNotes();
+        } else if (doesOpen(command, "maps")) {
+            playAudio("maps");
+            getDirections();
+        } else if (doesOpen(command, "alarm")) {
+            playAudio("alarm");
+            setAlarm();
+        } else if (doesOpen(command, "weather")) {
+            playAudio("weather");
+            getWeather();
+        } else if (doesOpen(command, "campfire")) {
+            playAudio("campfire");
+        } else if (isFarewell(command)) {
+            playAudio("farewell");
+            Platform.exit();
+        } else {
+            playAudio("unknown");
+            resultLabel.setText("Unknown command!");
+        }
+        commandInput.clear();
+    }
+
+    private void handleGreeting() {
+        playAudio("greeting");
+        resultLabel.setText("Greeting received!");
+    }
+
+    private void handleOpen(String application) {
+        //playAudio(application);
+        switch (application) {
+            case "notes":
+                openNotes();
+                break;
+            case "maps":
+                getDirections();
+                break;
+            case "alarm":
+                setAlarm();
+                break;
+            case "weather":
+                getWeather();
+                break;
+            case "camera":
+                // Handle camera if needed
+                break;
+            case "firesound":
+                playAudio("firesound");
+                break;
+        }
+    }
+
+    private void handleFarewell() {
+        playAudio("farewell");
+        resultLabel.setText("Farewell!");
+        Platform.exit();
+    }
+
+    private boolean isGreeting(String command) {
         return Pattern.compile(Pattern.quote("howdy"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("hello"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("hi"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("hey"), Pattern.CASE_INSENSITIVE).matcher(command).find();
-    }//isGreeting
+    }
 
-    private static boolean isFarewell(String command){
+    private boolean isFarewell(String command) {
         return Pattern.compile(Pattern.quote("goodbye"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("farewell"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("bye"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("exit"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("stop"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
                 Pattern.compile(Pattern.quote("later"), Pattern.CASE_INSENSITIVE).matcher(command).find();
-    }//end isFarewell
+    }
 
-    private static boolean doesOpen(String command, String toOpen){
+    private boolean doesOpen(String command, String toOpen) {
         return Pattern.compile(Pattern.quote("open"), Pattern.CASE_INSENSITIVE).matcher(command).find() &&
                 Pattern.compile(Pattern.quote(toOpen), Pattern.CASE_INSENSITIVE).matcher(command).find();
-    }//end doesOpen
+    }
 
-    private static void playAudio(String command){
-        try{
-            if(isGreeting(command)) {
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/greeting.wav").getAbsoluteFile());
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
-                clip.start();
-            }
-            else if(doesOpen(command, "camera")){
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/camera.wav").getAbsoluteFile());
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
-                clip.start();
-                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
-            }
-            else if(doesOpen(command, "notes")){
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/notes.wav").getAbsoluteFile());
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
-                clip.start();
-                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
-                openNotes();
-            }
-            else if(doesOpen(command, "maps")){
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/maps.wav").getAbsoluteFile());
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
-                clip.start();
-                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
-                getDirections();
-            }
-            else if(doesOpen(command, "alarm")){
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/alarm.wav").getAbsoluteFile());
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
-                clip.start();
-                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
-                setAlarm();
-            }
-            else if(doesOpen(command, "weather")){
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/whatWeather.wav").getAbsoluteFile());
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
-                clip.start();
-                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
-                getWeather();
-            }
-            else if(doesOpen(command, "campfire")){
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/campfire.wav").getAbsoluteFile());
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
-                clip.start();
-                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
-                AudioInputStream audioInputStream1 = AudioSystem.getAudioInputStream(new File("src/main/resources/firesound.wav").getAbsoluteFile());
-                Clip clip1 = AudioSystem.getClip();
-                clip1.open(audioInputStream1);
-                clip1.start();
-            }
-            else if(isFarewell(command)){
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/farewell.wav").getAbsoluteFile());
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
-                clip.start();
-                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
-                Platform.exit();
-            }
-            else{
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/unknown.wav").getAbsoluteFile());
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
-                clip.start();
-            }
-        } catch (Exception exception){
+    private void playAudio(String type) {
+        try {
+            System.out.println(type);
+            String filePath = "src/main/resources/" + type + ".wav";
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+            TimeUnit.SECONDS.sleep((clip.getMicrosecondLength() / 1000000));
+        } catch (Exception exception) {
             System.out.println("Error: Could not play audio");
         }
-    }//end playAudio
+    }
 
-    private static void openNotes() {
-        System.out.println("openNotes");
+    private void openNotes() {
+        System.out.println("Opening Notes...");
         try {
-            String[] cmds = {"notepad.exe"};
-            Runtime.getRuntime().exec(cmds);
-        } catch (Exception exception){
+            Runtime.getRuntime().exec("notepad.exe");
+        } catch (Exception exception) {
             System.out.println("Failed to launch notes");
         }
-        // ...
-    } //end openNotes
+    }
 
-    private static void getDirections() {
-        System.out.println("getDirections");
+    private void getDirections() {
+        System.out.println("Getting Directions...");
         try {
-            // Replace "https://yourweatherapp.com" with the actual URL
-            URI uri = new URI("https://www.google.com/maps/@33.5860592,-101.8818651,14z?entry=ttu&g_ep=EgoyMDI0MDkxMS4wIKXMDSoASAFQAw%3D%3D");
+            URI uri = new URI("https://www.google.com/maps");
             Desktop.getDesktop().browse(uri);
         } catch (Exception e) {
             System.out.println("Browser Open Failed.");
         }
-    } //end getDirections
+    }
 
-    private static void setAlarm() {
-        System.out.println("setAlarm");
-        // ...
-    } //end setAlarm
+    private void setAlarm() {
+        System.out.println("Setting Alarm...");
+        // Implementation for setting an alarm
+    }
 
-    private static void getWeather() {
+    private void getWeather() {
+        System.out.println("Getting Weather...");
         try {
-            // Replace "https://yourweatherapp.com" with the actual URL
-            URI uri = new URI("https://weather.com/weather/today/l/afd1892a384a87776fd470b48c5d153ef137ae9b620af9e1243b6ccf9b4fa301");
+            URI uri = new URI("https://weather.com");
             Desktop.getDesktop().browse(uri);
         } catch (Exception e) {
             System.out.println("Browser Open Failed.");
         }
-        // ...
-    } //end getWeather
-    
-    /*not used yet/might not use?
-
-    private String generateCowboyName() {
-        System.out.println("generateCowboyName");
-        // ...
-        return null; // Replace with actual implementation
-    } //end generateCowboyName
-
-    */
-
-}//end class
+    }
+}

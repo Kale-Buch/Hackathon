@@ -180,7 +180,8 @@ public class HelloApplication extends Application {
     private void openNotes() {
         System.out.println("Opening Notes...");
         try {
-            Runtime.getRuntime().exec("notepad.exe");
+            String[] cmds = {"notepad.exe"};
+            Runtime.getRuntime().exec(cmds);
         } catch (Exception exception) {
             System.out.println("Failed to launch notes");
         }

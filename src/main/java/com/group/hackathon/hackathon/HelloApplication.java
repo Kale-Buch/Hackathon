@@ -96,6 +96,7 @@ public class HelloApplication extends Application {
             getWeather();
         } else if (doesOpen(command, "campfire")) {
             playAudio("campfire");
+            playAudio("firesound");
         } else if (isFarewell(command)) {
             playAudio("farewell");
             Platform.exit();
@@ -105,41 +106,41 @@ public class HelloApplication extends Application {
         }
         commandInput.clear();
     }
-
-    private void handleGreeting() {
-        playAudio("greeting");
-        resultLabel.setText("Greeting received!");
-    }
-
-    private void handleOpen(String application) {
-        //playAudio(application);
-        switch (application) {
-            case "notes":
-                openNotes();
-                break;
-            case "maps":
-                getDirections();
-                break;
-            case "alarm":
-                setAlarm();
-                break;
-            case "weather":
-                getWeather();
-                break;
-            case "camera":
-                // Handle camera if needed
-                break;
-            case "firesound":
-                playAudio("firesound");
-                break;
-        }
-    }
-
-    private void handleFarewell() {
-        playAudio("farewell");
-        resultLabel.setText("Farewell!");
-        Platform.exit();
-    }
+//
+//    private void handleGreeting() {
+//        playAudio("greeting");
+//        resultLabel.setText("Greeting received!");
+//    }
+//
+//    private void handleOpen(String application) {
+//        //playAudio(application);
+//        switch (application) {
+//            case "notes":
+//                openNotes();
+//                break;
+//            case "maps":
+//                getDirections();
+//                break;
+//            case "alarm":
+//                setAlarm();
+//                break;
+//            case "weather":
+//                getWeather();
+//                break;
+//            case "camera":
+//                // Handle camera if needed
+//                break;
+//            case "firesound":
+//                playAudio("firesound");
+//                break;
+//        }
+//    }
+//
+//    private void handleFarewell() {
+//        playAudio("farewell");
+//        resultLabel.setText("Farewell!");
+//        Platform.exit();
+//    }
 
     private boolean isGreeting(String command) {
         return Pattern.compile(Pattern.quote("howdy"), Pattern.CASE_INSENSITIVE).matcher(command).find() ||
@@ -170,7 +171,8 @@ public class HelloApplication extends Application {
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
-            TimeUnit.SECONDS.sleep((clip.getMicrosecondLength() / 1000000));
+            if(!type.equals("firesound"))
+                TimeUnit.SECONDS.sleep((clip.getMicrosecondLength() / 1000000));
         } catch (Exception exception) {
             System.out.println("Error: Could not play audio");
         }

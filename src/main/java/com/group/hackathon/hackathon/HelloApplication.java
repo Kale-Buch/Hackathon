@@ -171,7 +171,7 @@ public class HelloApplication extends Application {
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
-            if(!type.equals("firesound"))
+            if(!type.equals("firesound") && !isGreeting(type)) // We don't wat it to sleep for every command i.e, the ambient fire sound.
                 TimeUnit.SECONDS.sleep((clip.getMicrosecondLength() / 1000000));
         } catch (Exception exception) {
             System.out.println("Error: Could not play audio");

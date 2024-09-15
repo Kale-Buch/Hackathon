@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 import javax.sound.sampled.*;
 import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 import java.net.URI;
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -33,7 +32,7 @@ public class HelloApplication extends Application {
     private TextField commandInput;
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         VBox root = new VBox(20);
         root.setPadding(new javafx.geometry.Insets(20));
 

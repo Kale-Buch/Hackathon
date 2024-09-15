@@ -106,7 +106,6 @@ public class HelloApplication extends Application {
                 clip.open(audioInputStream);
                 clip.start();
                 TimeUnit.SECONDS.sleep((clip.getMicrosecondLength()/1000000));
-                openCamera();
             }
             else if(doesOpen(command, "notes")){
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/main/resources/notes.wav").getAbsoluteFile());
@@ -169,11 +168,6 @@ public class HelloApplication extends Application {
             System.out.println("Error: Could not play audio");
         }
     }//end playAudio
-
-    private static void openCamera() {
-        System.out.println("openCamera");
-        // ...
-    } //end openCamera
 
     private static void openNotes() {
         System.out.println("openNotes");

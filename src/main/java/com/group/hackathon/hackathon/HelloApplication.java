@@ -44,31 +44,31 @@ public class HelloApplication extends Application {
         Button submitButton = new Button("Submit");
         submitButton.setOnAction(e -> processCommand(commandInput.getText()));
 
-        Button greetingButton = new Button("Greeting");
-        greetingButton.setOnAction(e -> handleGreeting());
+//        Button greetingButton = new Button("Greeting");
+//        greetingButton.setOnAction(e -> handleGreeting());
+//
+//        Button openCameraButton = new Button("Open Camera");
+//        openCameraButton.setOnAction(e -> handleOpen("camera"));
+//
+//        Button openNotesButton = new Button("Open Notes");
+//        openNotesButton.setOnAction(e -> handleOpen("notes"));
+//
+//        Button openMapsButton = new Button("Open Maps");
+//        openMapsButton.setOnAction(e -> handleOpen("maps"));
+//
+//        Button setAlarmButton = new Button("Set Alarm");
+//        setAlarmButton.setOnAction(e -> handleOpen("alarm"));
+//
+//        Button getWeatherButton = new Button("Get Weather");
+//        getWeatherButton.setOnAction(e -> handleOpen("weather"));
+//
+//        Button openCampfireButton = new Button("Open Campfire");
+//        openCampfireButton.setOnAction(e -> handleOpen("campfire"));
+//
+//        Button farewellButton = new Button("Farewell");
+//        farewellButton.setOnAction(e -> handleFarewell());
 
-        Button openCameraButton = new Button("Open Camera");
-        openCameraButton.setOnAction(e -> handleOpen("camera"));
-
-        Button openNotesButton = new Button("Open Notes");
-        openNotesButton.setOnAction(e -> handleOpen("notes"));
-
-        Button openMapsButton = new Button("Open Maps");
-        openMapsButton.setOnAction(e -> handleOpen("maps"));
-
-        Button setAlarmButton = new Button("Set Alarm");
-        setAlarmButton.setOnAction(e -> handleOpen("alarm"));
-
-        Button getWeatherButton = new Button("Get Weather");
-        getWeatherButton.setOnAction(e -> handleOpen("weather"));
-
-        Button openCampfireButton = new Button("Open Campfire");
-        openCampfireButton.setOnAction(e -> handleOpen("campfire"));
-
-        Button farewellButton = new Button("Farewell");
-        farewellButton.setOnAction(e -> handleFarewell());
-
-        root.getChildren().addAll(resultLabel, commandInput, submitButton, greetingButton, openCameraButton, openNotesButton, openMapsButton, setAlarmButton, getWeatherButton, openCampfireButton, farewellButton);
+        root.getChildren().addAll(resultLabel, commandInput, submitButton/*, greetingButton, openCameraButton, openNotesButton, openMapsButton, setAlarmButton, getWeatherButton, openCampfireButton, farewellButton*/);
 
         Scene scene = new Scene(root, 320, 240);
         stage.setTitle("Command Application");

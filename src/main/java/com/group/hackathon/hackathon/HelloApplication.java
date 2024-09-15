@@ -94,7 +94,7 @@ public class HelloApplication extends Application {
         } else if (doesOpen(command, "weather")) {
             playAudio("weather");
             getWeather();
-        } else if (doesOpen(command, "campfire")) {
+        } else if (Pattern.compile(Pattern.quote("campfire"), Pattern.CASE_INSENSITIVE).matcher(command).find()) {
             playAudio("campfire");
             playAudio("firesound");
         } else if (isFarewell(command)) {
@@ -181,8 +181,8 @@ public class HelloApplication extends Application {
     private void openNotes() {
         System.out.println("Opening Notes...");
         try {
-            String[] cmds = {"notepad.exe"};
-            Runtime.getRuntime().exec(cmds);
+            String[] commands = {"notepad.exe"};
+            Runtime.getRuntime().exec(commands);
         } catch (Exception exception) {
             System.out.println("Failed to launch notes");
         }

@@ -35,6 +35,7 @@ public class HelloApplication extends Application {
         stage.show();
     }
     public static void main(String[] args) {
+        //launch();
         String command;
         System.out.println("--Testing Begun--");
         do{
@@ -187,6 +188,12 @@ public class HelloApplication extends Application {
 
     private static void openNotes() {
         System.out.println("openNotes");
+        try {
+            String[] cmds = {"notepad.exe"};
+            Runtime.getRuntime().exec(cmds);
+        } catch (Exception exception){
+            System.out.println("Failed to launch notes");
+        }
         // ...
     } //end openNotes
 
